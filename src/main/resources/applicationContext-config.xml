@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
+
+       <bean class="com.plum.cas.utils.SpringUtils"/>
+
+       <bean class="com.plum.cas.web.exception.DefaultExceptionHandler"/>
+
+       <bean id="ccpsmsValidateService" class="com.plum.register.smsvalidate.impl.CCPSMSValidateServiceImpl">
+              <property name="serverUrl" value="${sms.service.url}"/>
+              <property name="serverPort" value="${sms.service.port}"/>
+              <property name="sid" value="${sms.auth.sid}"/>
+              <property name="token" value="${sms.auth.token}"/>
+              <property name="appId" value="${sms.server.appId}"/>
+              <property name="templateId" value="${sms.template.id}"/>
+              <property name="expiredTime" value="${sms.validate.expiredTime}"/>
+       </bean>
+
+</beans>
