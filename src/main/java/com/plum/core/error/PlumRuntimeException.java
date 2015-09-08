@@ -169,8 +169,8 @@ public class PlumRuntimeException extends RuntimeException
         
         Date today = new Date();
         StringBuilder buf = new StringBuilder(message.length() + 10);
-        padInt(buf, today.getMonth(), 2);
-        padInt(buf, today.getDate(), 2);
+        //padInt(buf, today.getMonth(), 2);
+        //padInt(buf, today.getDate(), 2);
         padInt(buf, errorCounter.getAndIncrement(), 4);
         buf.append(MESSAGE_DELIMITER);
         buf.append(message);

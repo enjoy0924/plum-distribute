@@ -3,10 +3,10 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.allere.cas</groupId>
-  <artifactId>cas-server</artifactId>
+  <artifactId>plum-distribute</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>cas-server Maven Webapp</name>
+  <name>plum-distribute Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -224,7 +224,7 @@
   </dependencies>
 
   <build>
-    <finalName>cas-server</finalName>
+    <finalName>plum-distribute</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

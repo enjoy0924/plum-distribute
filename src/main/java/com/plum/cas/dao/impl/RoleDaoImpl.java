@@ -9,26 +9,20 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Repository
 public class RoleDaoImpl extends AbstractBaseDao<RoleEntity, Long>
         implements RoleDao<RoleEntity, Long> {
 
-    private static final String QueryRolesByIds = "from RoleEntity where id in(:ids)";
-
     private List<RoleEntity> findRoleEntityByIds(List<Long> roleIds){
-        Session session = getSessionFactory().getCurrentSession();
-        if (null != session && session.isOpen()){
-            Query query = session.createQuery(QueryRolesByIds);
-            query.setParameterList("ids", roleIds);
-            return (List<RoleEntity>)query.list();
-        }
 
-        return null;
+        String QueryRolesByIdsHQL = "from RoleEntity where id in(:ids)";
+        Map<String, Object> params = new HashMap<>();
+        params.put("ids", roleIds);
+
+        return findMultiByParameters(QueryRolesByIdsHQL, params, false);
     }
 
     public Set<Long> findRolesByIds(List<Long> roleIds) {

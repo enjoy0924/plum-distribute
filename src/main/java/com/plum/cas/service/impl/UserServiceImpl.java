@@ -6,11 +6,10 @@ import com.plum.cas.dto.User;
 import com.plum.cas.entity.UserEntity;
 import com.plum.cas.service.UserService;
 import com.plum.cas.utils.PasswordHelper;
-import com.plum.core.page.PageUtils;
+import com.plum.core.queryfilter.PageSortFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -242,7 +241,7 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
-    public List<User> findAllByPage(PageUtils page) {
+    public List<User> findAllByPage(PageSortFilter page) {
         return null;
     }
 }

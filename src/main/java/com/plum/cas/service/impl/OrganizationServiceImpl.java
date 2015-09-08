@@ -4,7 +4,7 @@ import com.plum.cas.dao.OrganizationDao;
 import com.plum.cas.dto.Organization;
 import com.plum.cas.entity.OrganizationEntity;
 import com.plum.cas.service.OrganizationService;
-import com.plum.core.page.PageUtils;
+import com.plum.core.queryfilter.PageSortFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,7 +68,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizations;
     }
 
-    public List<Organization> findAllByPage(PageUtils page) {
+    public List<Organization> findAllByPage(PageSortFilter page) {
         return null;
     }
 }

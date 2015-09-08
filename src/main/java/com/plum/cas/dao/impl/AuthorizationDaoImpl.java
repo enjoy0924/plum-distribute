@@ -4,17 +4,16 @@ import com.plum.cas.dao.AuthorizationDao;
 import com.plum.cas.entity.AuthorizationEntity;
 import com.plum.core.utils.ConvertUtil;
 import com.plum.core.dao.AbstractBaseDao;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AuthorizationDaoImpl extends AbstractBaseDao<AuthorizationEntity, Long>
         implements AuthorizationDao<AuthorizationEntity, Long>  {
-
-    private static final String QueryRoleIdsByAppUserId = "from AuthorizationEntity where appId=:appId and userId=:userId";
 
     public AuthorizationEntity findByAppUser(Long appId, Long userId) {
         System.out.println("Unimplemented Method!");
@@ -22,22 +21,18 @@ public class AuthorizationDaoImpl extends AbstractBaseDao<AuthorizationEntity, L
     }
 
     public List<Long> findRoleIdsByAppUserId(Long appId, Long userId) {
+        String QueryRoleIdsByAppUserIdHQL = "from AuthorizationEntity where appId=:appId and userId=:userId";
+        Map<String, Object> params = new HashMap<>();
+        params.put("appId", appId);
+        params.put("userId", userId);
 
-        Session session = getSessionFactory().getCurrentSession();
-        if (null != session && session.isOpen())
-        {
-            Query query = session.createQuery(QueryRoleIdsByAppUserId);
-            query.setParameter("appId", appId);
-            query.setParameter("userId", userId);
-
-            List<AuthorizationEntity> authorizationEntities = query.list();
-
-            String roleIds = authorizationEntities.get(0).getRoleIds();
-
-            return ConvertUtil.stringConvert2LongList(roleIds, ",");
-
+        List<AuthorizationEntity> authorizationEntities = findMultiByParameters(QueryRoleIdsByAppUserIdHQL, params, false);
+        if(null == authorizationEntities || authorizationEntities.isEmpty()){
+            return new ArrayList<>();
         }
+        String roleIds = authorizationEntities.get(0).getRoleIds();
 
-        return null;
+        return ConvertUtil.stringConvert2LongList(roleIds, ",");
+
     }
 }

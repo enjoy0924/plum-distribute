@@ -1,6 +1,6 @@
 package com.plum.core.service;
 
-import com.plum.core.page.PageUtils;
+import com.plum.core.queryfilter.PageSortFilter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +24,6 @@ public interface BaseService<DTOType, Index extends Serializable> {
 
     List<DTOType> findAll();
 
-    List<DTOType> findAllByPage(PageUtils page);
+    List<DTOType> findAllByPage(PageSortFilter page);
 
 }

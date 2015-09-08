@@ -8,7 +8,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext-hibernate.xml","classpath:applicationContext-config.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext-hibernate.xml",
+        "classpath:applicationContext-config.xml",
+        "classpath:applicationContext-shiro.xml"})
 public abstract class AbstractTestBaseService {
     @Autowired
     protected ApplicationContext applicationContext;
