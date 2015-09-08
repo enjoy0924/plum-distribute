@@ -3,6 +3,7 @@ package com.plum.cas.dao.impl;
 import com.plum.cas.dao.ResourceDao;
 import com.plum.cas.entity.ResourceEntity;
 import com.plum.core.dao.AbstractBaseDao;
+import com.plum.core.filter.PageSortFilter;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

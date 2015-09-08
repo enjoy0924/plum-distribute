@@ -93,6 +93,19 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     public List<Resource> findAllByPage(PageSortFilter page) {
-        return null;
+
+        List<Resource> resources = new ArrayList<>();
+
+        List<ResourceEntity> resourceEntities = resourceDao.findAllByPage("ResourceEntity", page);
+        if(null == resourceEntities || resourceEntities.isEmpty())
+            return resources;
+
+        for(ResourceEntity resourceEntity : resourceEntities){
+            Resource resource = new Resource();
+            BeanUtils.copyProperties(resourceEntity, resource);
+            resources.add(resource);
+        }
+
+        return resources;
     }
 }

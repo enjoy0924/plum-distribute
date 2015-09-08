@@ -13,13 +13,14 @@ import java.util.List;
  */
 public interface BaseDao<T,PK extends Serializable> {
 
-    public T create(T entity);
-    public T update(T entity);
-    public void delete(T entityWithId);
+    T create(T entity);
+    void batchSave(List<T> entities);
+    T update(T entity);
+    void delete(T entityWithId);
 
-    public T findOne(PK Id, Class<T> classname);
-    public List<T> findAll(String className);
+    T findOne(PK Id, Class<T> classname);
+    List<T> findAll(String className);
 
-    public List<T> findAllByPage(String className, PageSortFilter page);
+    List<T> findAllByPage(String className, PageSortFilter page);
 
 }

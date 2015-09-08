@@ -28,6 +28,24 @@ public abstract class AbstractBaseDao< T, PK extends Serializable> implements Ba
         return entity;
     }
 
+    public void batchSave(List<T> entities){
+        ParameterCheck.mandatory("entities", entities);
+        int saveCount = 0;
+        Session session = getSessionFactory().getCurrentSession();
+        if (null != session && session.isOpen()){
+            for(T entity : entities) {
+                session.save(entity);
+                if(++saveCount % 100 == 0)
+                {
+                    session.flush();
+                    session.clear();
+                    saveCount = 0;
+                }
+            }
+
+        }
+    }
+
     public T update(T entity){
         Session session = getSessionFactory().getCurrentSession();
         if (null != session && session.isOpen())
@@ -49,14 +67,25 @@ public abstract class AbstractBaseDao< T, PK extends Serializable> implements Ba
     }
 
     public List<T> findAll(String className) {
-        StringBuffer hql = new StringBuffer();
-        hql.append("from ").append(className);
+        String hql = "from " + className;
         Session session = getSessionFactory().getCurrentSession();
         if (null != session && session.isOpen()) {
-            Query query = session.createQuery(hql.toString());
+            Query query = session.createQuery(hql);
             return query.list();
         }
         return null;
+    }
+
+    public int updateOrDelete(String hql, Map<String, Object> parameters){
+        Session session = getSessionFactory().getCurrentSession();
+        if (null != session && session.isOpen()) {
+            Query query = session.createQuery(hql.toString());
+            fillParameter(query, parameters);
+
+            return query.executeUpdate();
+        }
+
+        return -1;
     }
 
     /**
@@ -156,5 +185,11 @@ public abstract class AbstractBaseDao< T, PK extends Serializable> implements Ba
         return null;
     }
 
+    @Override
+    public List<T> findAllByPage(String className, PageSortFilter page) {
+
+        String hql = "from " + className;
+        return findPageByParameters(hql, page, new HashMap<>(), false);
+    }
 
 }
