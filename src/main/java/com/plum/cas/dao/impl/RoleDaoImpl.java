@@ -5,8 +5,6 @@ import com.plum.cas.entity.RoleEntity;
 import com.plum.core.utils.ConvertUtil;
 import com.plum.core.dao.AbstractBaseDao;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
