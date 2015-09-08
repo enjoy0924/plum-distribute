@@ -1,6 +1,6 @@
 package com.plum.core.dao;
 
-import com.plum.core.queryfilter.PageSortFilter;
+import com.plum.core.page.PageSortFilter;
 
 import java.io.Serializable;
 import java.util.List;

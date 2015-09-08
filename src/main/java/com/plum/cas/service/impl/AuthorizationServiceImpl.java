@@ -5,7 +5,7 @@ import com.plum.cas.dto.Authorization;
 import com.plum.cas.entity.AuthorizationEntity;
 import com.plum.cas.entity.UserEntity;
 import com.plum.cas.service.AuthorizationService;
-import com.plum.core.queryfilter.PageSortFilter;
+import com.plum.core.filter.PageSortFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

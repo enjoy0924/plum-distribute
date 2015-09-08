@@ -5,7 +5,7 @@ import com.plum.cas.dao.RoleDao;
 import com.plum.cas.dto.Role;
 import com.plum.cas.entity.RoleEntity;
 import com.plum.cas.service.RoleService;
-import com.plum.core.queryfilter.PageSortFilter;
+import com.plum.core.filter.PageSortFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

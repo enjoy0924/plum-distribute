@@ -4,7 +4,7 @@ import com.plum.cas.dao.AppDao;
 import com.plum.cas.dto.App;
 import com.plum.cas.entity.AppEntity;
 import com.plum.cas.service.AppService;
-import com.plum.core.queryfilter.PageSortFilter;
+import com.plum.core.filter.PageSortFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

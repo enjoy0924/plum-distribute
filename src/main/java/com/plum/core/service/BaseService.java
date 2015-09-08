@@ -1,7 +1,6 @@
 package com.plum.core.service;
 
-import com.plum.core.queryfilter.PageSortFilter;
-
+import com.plum.core.filter.PageSortFilter;
 import java.io.Serializable;
 import java.util.List;
 
