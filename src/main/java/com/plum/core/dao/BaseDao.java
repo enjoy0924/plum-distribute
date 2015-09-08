@@ -1,6 +1,6 @@
 package com.plum.core.dao;
 
-import com.plum.core.page.PageSortFilter;
+import com.plum.core.filter.PageSortFilter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +20,6 @@ public interface BaseDao<T,PK extends Serializable> {
     public T findOne(PK Id, Class<T> classname);
     public List<T> findAll(String className);
 
-    public List<T> findAllByPage(PageSortFilter page);
+    public List<T> findAllByPage(String className, PageSortFilter page);
 
 }

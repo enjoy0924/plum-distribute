@@ -1,6 +1,6 @@
 package com.plum.core.dao;
 
-import com.plum.core.page.PageSortFilter;
+import com.plum.core.filter.PageSortFilter;
 import com.plum.core.utils.ParameterCheck;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -115,13 +115,40 @@ public abstract class AbstractBaseDao< T, PK extends Serializable> implements Ba
         return null;
     }
 
-    public List<T> findPageByParameters(String hql, PageSortFilter pageUtils , Map<String, Object> parameters, boolean cache){
+    public Long findCount(String hql, Map<String, Object> parameters){
+        return (Long) findSingleByParameters(hql, parameters, false);
+    }
+
+    public List<T> findPageByParameters(String hql, PageSortFilter pageSortFilter , Map<String, Object> parameters, boolean cache){
+
+        ParameterCheck.mandatory("pageSortFilter", pageSortFilter);
+
+        /** 组装查询记录总数 **/
+        String countHql = "select count(0) ";
+        int fromIndex = hql.toLowerCase().indexOf("from");
+        if(fromIndex < 0)
+            return null;
+        countHql = countHql + hql.substring(fromIndex);
+        Long total = findCount(countHql, parameters);
+        pageSortFilter.setTotalCount(total);
+
+        /** 组装排序参数 **/
+        StringBuilder hqlBuilder = new StringBuilder(hql);
+        String sortField = pageSortFilter.getSortField();
+        if(null != sortField && !sortField.isEmpty()){
+            hqlBuilder.append(" order by "+sortField + " " + pageSortFilter.getSortType());
+            hql = hqlBuilder.toString();
+        }
+
         Session session = getSessionFactory().getCurrentSession();
         if (null != session && session.isOpen()) {
             Query query = session.createQuery(hql.toString());
             fillParameter(query, parameters);
             query.setCacheable(cache);
 
+            /** 添加分页参数 **/
+            query.setFirstResult(pageSortFilter.getBeginIndex());
+            query.setMaxResults(pageSortFilter.getSizePerPage());
 
             return query.list();
         }
@@ -129,8 +156,5 @@ public abstract class AbstractBaseDao< T, PK extends Serializable> implements Ba
         return null;
     }
 
-    public List<T> findAllByPage(PageSortFilter page){
-        return null;
-    }
 
 }

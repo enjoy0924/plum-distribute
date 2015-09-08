@@ -11,4 +11,8 @@ public class CONST {
     public static final String KEY_VALIDATE_SMS_CODE = "sms_validate_code";
     public static final String KEY_VALIDATE_IMG_RETRY_TIMES = "image_validate_times";
     public static final String KEY_VALIDATE_SMS_RETRY_TIMES = "sms_validate_times";
+
+
+    public static final String COMM_QUERY_SORT_UP   = "up";
+    public static final String COMM_QUERY_SORT_DOWN = "down";
 }

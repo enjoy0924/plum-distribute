@@ -1,5 +1,7 @@
 package com.plum.core.filter;
 
+import com.plum.constant.CONST;
+
 /**
  * 用来做分页和排序的参数对象
  *
@@ -8,7 +10,7 @@ package com.plum.core.filter;
 
 public class PageSortFilter {
     private int sizePerPage;       //每一页记录条数
-    private int totalCount;        //总记录数
+    private Long totalCount;        //总记录数
     private int totalPage;         //总页数
     private int currentPage;       //当前页数
     private int beginIndex;        //开始游标
@@ -37,7 +39,7 @@ public class PageSortFilter {
         this.sortType = sortType;
     }
 
-    public void setTotalCount(int totalCount){
+    public void setTotalCount(long totalCount){
         this.totalCount = totalCount;
     }
 
@@ -45,7 +47,7 @@ public class PageSortFilter {
         return sizePerPage;
 	}
 
-	public int getTotalCount() {
+	public long getTotalCount() {
         return totalCount;
 	}
 
@@ -78,6 +80,12 @@ public class PageSortFilter {
     }
 
     public String getSortType() {
+
+        if(CONST.COMM_QUERY_SORT_UP.equalsIgnoreCase(sortType))
+            sortType = "asc";
+        else
+            sortType = "desc";
+
         return sortType;
     }
 }
