@@ -15,4 +15,8 @@ public class CONST {
 
     public static final String COMM_QUERY_SORT_UP   = "up";
     public static final String COMM_QUERY_SORT_DOWN = "down";
+
+    public static int MQ_PIPE_TYPE_TOPIC = 1;
+    public static int MQ_PIPE_TYPE_QUEUE = 2;
+
 }

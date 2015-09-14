@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+       default-autowire="byName" default-lazy-init="true">
+
+    <context:property-placeholder location="classpath:mq.properties" ignore-unresolvable="true"/>
+
+    <!-- 创建工厂连接 -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${mq.activemq.url}" />
+        <!--<property name="userName" value="${mq.activemq.username}"/>-->
+        <!--<property name="password" value="${mq.activemq.password}"/>-->
+    </bean>
+
+    <bean name="publisher" class="com.plum.notification.ProducerTool">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--<property name=""-->
+        <property name="destinations">
+            <util:set>
+                <value>${mq.topic.sample}</value>
+                <value>${mq.queue.sample}</value>
+            </util:set>
+        </property>
+    </bean>
+
+    <bean name="subscriber" class="com.plum.notification.ConsumerTool">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="clientId" value="${mq.activemq.clientId}"/>
+        <!--<property name=""-->
+        <property name="destinations">
+            <util:set>
+                <value>${mq.topic.sample}</value>
+                <value>${mq.queue.sample}</value>
+            </util:set>
+        </property>
+    </bean>
+
+</beans>
