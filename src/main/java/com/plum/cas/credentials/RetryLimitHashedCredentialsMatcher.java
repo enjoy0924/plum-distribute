@@ -10,7 +10,7 @@ import org.apache.shiro.cache.CacheManager;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
+ * 凭证匹配
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
@@ -34,11 +34,11 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
             throw new ExcessiveAttemptsException();
         }
 
-        boolean matches = super.doCredentialsMatch(token, info);
-        if(matches) {
+        boolean isMatched = super.doCredentialsMatch(token, info);
+        if(isMatched) {
             //clear retry count
             passwordRetryCache.remove(username);
         }
-        return matches;
+        return isMatched;
     }
 }

@@ -18,6 +18,9 @@ public class ServerFormAuthenticationFilter extends FormAuthenticationFilter {
         if(StringUtils.isEmpty(fallbackUrl)) {
             fallbackUrl = getSuccessUrl();
         }
+
+        System.out.println("+++++ redirect to URL [" + fallbackUrl + "]");
+
         WebUtils.redirectToSavedRequest(request, response, fallbackUrl);
     }
 

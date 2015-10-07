@@ -6,8 +6,6 @@
 
        <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
 
-       <bean class="com.plum.cas.utils.SpringUtils"/>
-
        <bean class="com.plum.cas.web.exception.DefaultExceptionHandler"/>
 
        <bean id="ccpsmsValidateService" class="com.plum.register.smsvalidate.impl.CCPSMSValidateServiceImpl">

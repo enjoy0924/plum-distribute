@@ -45,7 +45,9 @@ public class UserRealm extends AuthorizingRealm {
             throw new LockedAccountException(); //帐号锁定
         }
 
-        //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
+        /** 1.这里只是取出数据库的密码相关的字段，后面需要通过凭证匹配器匹配密码
+         *  2.将用户传入的凭证封装在token里面，将处理后的凭证封装的info里面，凭证配置器会对两者的数据进行比对
+         */
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUsername(), //用户名
                 user.getPassword(), //密码

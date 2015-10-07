@@ -1,11 +1,13 @@
 package com.plum.register.controller;
 
 import com.plum.constant.CONST;
+import com.plum.core.dto.AuthValidateDTO;
 import com.plum.register.ValidateServiceFactory;
 import com.plum.register.smsvalidate.SMSValidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -78,13 +80,13 @@ public class validateController {
      */
     @RequestMapping("/getsms")
     @ResponseBody
-    public Object getSMSCode(HttpServletRequest request, String phone){
+    public Object getSMSCode(HttpServletRequest request,@RequestBody AuthValidateDTO authValidateDTO){
 
         String validateCode = ValidateServiceFactory.GenerateSMSValidateCode();
 
         request.getSession().setAttribute(CONST.KEY_VALIDATE_SMS_CODE, validateCode);
 
-        return smsValidateService.SendSMSValidateCode(phone, validateCode);
+        return smsValidateService.SendSMSValidateCode(authValidateDTO.getCellphone(), validateCode);
     }
 
 

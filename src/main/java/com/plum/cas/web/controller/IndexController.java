@@ -29,6 +29,9 @@ public class IndexController {
         Set<String> permissions = authorizationService.findPermissions(CONST.SERVER_APP_KEY, loginUser.getUsername());
         List<Resource> menus = resourceService.findMenus(permissions);
         model.addAttribute("menus", menus);
+
+        System.out.println("index controller entry --------------");
+
         return "index";
     }
 

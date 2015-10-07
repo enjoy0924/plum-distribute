@@ -13,6 +13,7 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
 
+    <!-- 密码加密辅助类 -->
     <bean id="passwordHelper" class="com.plum.cas.utils.PasswordHelper">
         <property name="algorithmName" value="${password.algorithmName}"/>
         <property name="hashIterations" value="${password.hashIterations}"/>
@@ -26,21 +27,21 @@
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.plum.cas.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
-        <property name="hashAlgorithmName" value="md5"/>
-        <property name="hashIterations" value="2"/>
+        <property name="hashAlgorithmName" value="${password.algorithmName}"/>
+        <property name="hashIterations" value="${password.hashIterations}"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
 
-    <!-- Realm实现 -->
+    <!-- Realm实现，加入自定义的凭证匹配器，辅助完成认证过程 -->
     <bean id="userRealm" class="com.plum.cas.realm.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="false"/>
     </bean>
 
-    <!-- 会话ID生成器 -->
+    <!-- session ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
-    <!-- 会话Cookie模板 -->
+    <!-- session Cookie模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="sid"/>
         <property name="httpOnly" value="true"/>
@@ -49,6 +50,7 @@
         <property name="path" value="/"/>
     </bean>
 
+    <!-- rememberMe管理器 -->
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="rememberMe"/>
         <property name="httpOnly" value="true"/>
@@ -57,7 +59,6 @@
         <property name="path" value="/"/>
     </bean>
 
-    <!-- rememberMe管理器 -->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
         <!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
         <property name="cipherKey"
@@ -112,6 +113,7 @@
 
     <!--
         这里使用ShiroFilterFactoryBean来创建一个shiro的Filter，属性<filters>可以自定义自己的filter
+        关于shrio filter的更过类容，请查看docs目录下的shrio filter讲解
      -->
     <bean id="shiroGlobalFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
@@ -124,11 +126,13 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /remoteService = anon
+                <!--/remoteService = anon-->
+                /validate/* = anon
                 /login = authc
                 /logout = logout
-                /authenticated = authc
-                /** = user,sysUser
+                <!--/authenticated = authc-->
+                <!-- 其他的URL请求都必须是RememberMe或者sysUser -->
+                /** = user, sysUser
             </value>
         </property>
     </bean>
@@ -137,12 +141,12 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- 远程服务 -->
-    <bean id="remoteService" class="com.plum.cas.remote.RemoteService"/>
+    <!--<bean id="remoteService" class="com.plum.cas.remote.RemoteService"/>-->
 
-    <bean name="/remoteService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-        <property name="service" ref="remoteService"/>
-        <property name="serviceInterface" value="com.plum.cas.remote.RemoteServiceInterface"/>
-    </bean>
+    <!--<bean name="/remoteService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">-->
+        <!--<property name="service" ref="remoteService"/>-->
+        <!--<property name="serviceInterface" value="com.plum.cas.remote.RemoteServiceInterface"/>-->
+    <!--</bean>-->
 
     <!--<bean id="serviceExporter" class="org.springframework.remoting.rmi.RmiServiceExporter">-->
         <!--<property name="serviceName" value="CASAccountService" />-->

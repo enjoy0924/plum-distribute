@@ -6,7 +6,6 @@ import com.plum.cas.service.HibernateSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.io.Serializable;
 
 
@@ -17,7 +16,15 @@ public class HibernateSessionServiceImpl implements HibernateSessionService {
     private HibernateSessionDao hibernateSessionDao;
 
     public void update(SessionEntity sessionEntity) {
-        hibernateSessionDao.update(sessionEntity);
+
+        SessionEntity sessionOld = (SessionEntity) hibernateSessionDao.findOne(sessionEntity.getId(), SessionEntity.class);
+
+        if(null == sessionOld){
+            return;
+        }
+        sessionOld.setSession(sessionEntity.getSession());
+
+        hibernateSessionDao.update(sessionOld);
     }
 
     public void delete(SessionEntity sessionEntity) {
