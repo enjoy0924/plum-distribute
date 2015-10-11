@@ -45,6 +45,8 @@ public class ImgRandomValidateCodeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        System.out.println(request.getSession().getId());
+
         response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
         response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
         response.setHeader("Cache-Control", "no-cache");

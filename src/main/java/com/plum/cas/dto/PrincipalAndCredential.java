@@ -2,10 +2,38 @@ package com.plum.cas.dto;
 
 
 public class PrincipalAndCredential {
-    private ModPwdType type;
-    private String principal;
+    private String principal;    //ID, username/phone/email
+    private String credential;   //Credential, password/
+    private Boolean rememberMe;  //Remember Me?
+
+    private String verifyCode;   //verify code, maybe it's not necessary
     private String newCredential;
-    private String credential;
+    private ModPwdType type;
+    private String appKey;
+
+    public Boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(Boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
 
 
     public enum ModPwdType {

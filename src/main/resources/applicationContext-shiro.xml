@@ -9,9 +9,9 @@
 
     <context:property-placeholder location="classpath:security.properties" ignore-unresolvable="true"/>
 
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
-    </bean>
+    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+        <!--<property name="securityManager" ref="securityManager"/>-->
+    <!--</bean>-->
 
     <!-- 密码加密辅助类 -->
     <bean id="passwordHelper" class="com.plum.cas.utils.PasswordHelper">
@@ -39,77 +39,77 @@
     </bean>
 
     <!-- session ID生成器 -->
-    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <!--<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>-->
 
     <!-- session Cookie模板 -->
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="sid"/>
-        <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="-1"/>
-        <property name="domain" value=""/>
-        <property name="path" value="/"/>
-    </bean>
+    <!--<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">-->
+        <!--<constructor-arg value="sid"/>-->
+        <!--<property name="httpOnly" value="true"/>-->
+        <!--<property name="maxAge" value="-1"/>-->
+        <!--<property name="domain" value=""/>-->
+        <!--<property name="path" value="/"/>-->
+    <!--</bean>-->
 
     <!-- rememberMe管理器 -->
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="rememberMe"/>
-        <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="2592000"/><!-- 30天 -->
-        <property name="domain" value=""/>
-        <property name="path" value="/"/>
-    </bean>
+    <!--<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">-->
+        <!--<constructor-arg value="rememberMe"/>-->
+        <!--<property name="httpOnly" value="true"/>-->
+        <!--<property name="maxAge" value="2592000"/>&lt;!&ndash; 30天 &ndash;&gt;-->
+        <!--<property name="domain" value=""/>-->
+        <!--<property name="path" value="/"/>-->
+    <!--</bean>-->
 
-    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-        <!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
-        <property name="cipherKey"
-                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
-        <property name="cookie" ref="rememberMeCookie"/>
-    </bean>
+    <!--<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">-->
+        <!--&lt;!&ndash; rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）&ndash;&gt;-->
+        <!--<property name="cipherKey"-->
+                  <!--value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>-->
+        <!--<property name="cookie" ref="rememberMeCookie"/>-->
+    <!--</bean>-->
 
     <!-- 会话DAO -->
-    <bean id="sessionDAO" class="com.plum.cas.session.PersistSessionComponent">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
-        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-    </bean>
+    <!--<bean id="sessionDAO" class="com.plum.cas.session.PersistSessionComponent">-->
+        <!--<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>-->
+        <!--<property name="sessionIdGenerator" ref="sessionIdGenerator"/>-->
+    <!--</bean>-->
 
     <!-- 会话验证调度器 -->
-    <bean id="sessionValidationScheduler" class="com.plum.cas.scheduler.PersistSessionValidationScheduler">
-        <property name="interval" value="1800000"/>
-        <property name="sessionManager" ref="sessionManager"/>
-    </bean>
+    <!--<bean id="sessionValidationScheduler" class="com.plum.cas.scheduler.PersistSessionValidationScheduler">-->
+        <!--<property name="interval" value="1800000"/>-->
+        <!--<property name="sessionManager" ref="sessionManager"/>-->
+    <!--</bean>-->
 
     <!-- 会话管理器 -->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="1800000"/>
-        <property name="deleteInvalidSessions" value="true"/>
-        <property name="sessionValidationSchedulerEnabled" value="true"/>
-        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
-        <property name="sessionDAO" ref="sessionDAO"/>
-        <property name="sessionIdCookieEnabled" value="true"/>
-        <property name="sessionIdCookie" ref="sessionIdCookie"/>
-    </bean>
+    <!--<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
+        <!--<property name="globalSessionTimeout" value="1800000"/>-->
+        <!--<property name="deleteInvalidSessions" value="true"/>-->
+        <!--<property name="sessionValidationSchedulerEnabled" value="true"/>-->
+        <!--<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>-->
+        <!--<property name="sessionDAO" ref="sessionDAO"/>-->
+        <!--<property name="sessionIdCookieEnabled" value="true"/>-->
+        <!--<property name="sessionIdCookie" ref="sessionIdCookie"/>-->
+    <!--</bean>-->
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="userRealm"/>
-        <property name="sessionManager" ref="sessionManager"/>
-        <property name="rememberMeManager" ref="rememberMeManager"/>
+        <!--<property name="sessionManager" ref="sessionManager"/>-->
+        <!--<property name="rememberMeManager" ref="rememberMeManager"/>-->
     </bean>
 
     <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
-        <property name="arguments" ref="securityManager"/>
-    </bean>
+    <!--<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
+        <!--<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>-->
+        <!--<property name="arguments" ref="securityManager"/>-->
+    <!--</bean>-->
 
     <!-- 基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter" class="com.plum.cas.web.shiro.filter.ServerFormAuthenticationFilter">
-        <property name="usernameParam" value="username"/>
-        <property name="passwordParam" value="password"/>
-        <property name="rememberMeParam" value="rememberMe"/>
-    </bean>
+    <!--<bean id="formAuthenticationFilter" class="com.plum.cas.web.shiro.filter.ServerFormAuthenticationFilter">-->
+        <!--<property name="usernameParam" value="username"/>-->
+        <!--<property name="passwordParam" value="password"/>-->
+        <!--<property name="rememberMeParam" value="rememberMe"/>-->
+    <!--</bean>-->
 
-    <bean id="sysUserFilter" class="com.plum.cas.web.shiro.filter.SysUserFilter"/>
+    <!--<bean id="sysUserFilter" class="com.plum.cas.web.shiro.filter.SysUserFilter"/>-->
 
     <!--
         这里使用ShiroFilterFactoryBean来创建一个shiro的Filter，属性<filters>可以自定义自己的filter
@@ -118,21 +118,23 @@
     <bean id="shiroGlobalFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login"/>
-        <property name="filters">
-            <util:map>
-                <entry key="authc" value-ref="formAuthenticationFilter"/>
-                <entry key="sysUser" value-ref="sysUserFilter"/>
-            </util:map>
-        </property>
+        <!--<property name="filters">-->
+            <!--<util:map>-->
+                <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+                <!--<entry key="sysUser" value-ref="sysUserFilter"/>-->
+            <!--</util:map>-->
+        <!--</property>-->
         <property name="filterChainDefinitions">
             <value>
                 <!--/remoteService = anon-->
                 /validate/* = anon
+                /api/** = anon
                 /login = authc
                 /logout = logout
                 <!--/authenticated = authc-->
                 <!-- 其他的URL请求都必须是RememberMe或者sysUser -->
-                /** = user, sysUser
+                /admin/* = authc, roles[admin]
+                /** = user
             </value>
         </property>
     </bean>
