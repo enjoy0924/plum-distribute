@@ -41,6 +41,9 @@ public class PersistSessionComponent extends CachingSessionDAO {
     @Override
     protected Serializable doCreate(Session session) {
         Serializable sessionId = generateSessionId(session);
+
+        System.out.println("shiro sessionId:" + sessionId);
+
         assignSessionId(session, sessionId);
 
         SessionEntity sessionEntity = new SessionEntity();

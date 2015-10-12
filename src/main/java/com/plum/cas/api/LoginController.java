@@ -40,13 +40,18 @@ public class LoginController {
 
         IdentityDTO identityDTO = new IdentityDTO();
 
-        System.out.println(request.getSession().getId());
+        System.out.println("http sessionId: " + request.getSession().getId());
 
         //String resultPageURL = InternalResourceViewResolver.FORWARD_URL_PREFIX + "/";
         String username = principalAndCredential.getPrincipal();
         String password = principalAndCredential.getCredential();
         String submitCode = principalAndCredential.getVerifyCode();
         String appKey = principalAndCredential.getAppKey();
+        if(null == appKey){
+            result.getResult().setCode(0x0007);
+            result.getResult().setMsg("no specified app key");
+            return result;
+        }
         //获取HttpSession中的验证码
         String verifyCode = (String)request.getSession().getAttribute(CONST.KEY_VALIDATE_IMG_CODE);
 
@@ -54,12 +59,14 @@ public class LoginController {
         //String submitCode = WebUtils.getCleanParam(request, CONST.KEY_VALIDATE_IMG_CODE);
         //System.out.println("用户[" + username + "]登录时输入的验证码为[" + submitCode + "],HttpSession中的验证码为[" + verifyCode + "]");
 
-        if (StringUtils.isEmpty(submitCode) || !verifyCode.equalsIgnoreCase(submitCode)){
-            //request.setAttribute("message_login", "验证码不正确");
-            identityDTO.setIsAuthenticated(false);
-            result.getResult().setCode(0x0001);
-            result.getResult().setMsg("verify code fail");
-            return result;
+        if(null != verifyCode){
+            if (StringUtils.isEmpty(submitCode) || !verifyCode.equalsIgnoreCase(submitCode)){
+                //request.setAttribute("message_login", "验证码不正确");
+                identityDTO.setIsAuthenticated(false);
+                result.getResult().setCode(0x0001);
+                result.getResult().setMsg("verify code fail");
+                return result;
+            }
         }
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         if(null != principalAndCredential.isRememberMe() && principalAndCredential.isRememberMe())
