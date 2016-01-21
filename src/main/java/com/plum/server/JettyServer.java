@@ -4,7 +4,10 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
+ * 启动程序入口
+ *
  * Created by G_dragon on 2015/7/22.
+ *
  */
 public class JettyServer {
 

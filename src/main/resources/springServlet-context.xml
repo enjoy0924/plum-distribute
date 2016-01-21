@@ -11,6 +11,24 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+
+	<!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+	<!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+		<!--<property name="locations">-->
+			<!--<list>-->
+				<!--&lt;!&ndash; 这里支持多种寻址方式：classpath和file &ndash;&gt;-->
+				<!--<value>classpath:security.properties</value>-->
+				<!--<value>classpath:mq.properties</value>-->
+				<!--<value>classpath:config.properties</value>-->
+				<!--<value>classpath:datasource.properties</value>-->
+
+				<!--&lt;!&ndash; 推荐使用file的方式引入，这样可以将配置和代码分离 &ndash;&gt;-->
+				<!--&lt;!&ndash;<value>file:/opt/demo/config/demo-mq.properties</value>&ndash;&gt;-->
+				<!--&lt;!&ndash;<value>file:/opt/demo/config/demo-remote.properties</value>&ndash;&gt;-->
+			<!--</list>-->
+		<!--</property>-->
+	<!--</bean>-->
+
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->

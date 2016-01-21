@@ -45,13 +45,13 @@
 		<!-- the must have. before this is mapping,now is entity --> 
 		<property name="annotatedClasses">
 			<list>
-				<value>com.plum.cas.entity.AppEntity</value>
-				<value>com.plum.cas.entity.AuthorizationEntity</value>
-				<value>com.plum.cas.entity.OrganizationEntity</value>
-				<value>com.plum.cas.entity.ResourceEntity</value>
-				<value>com.plum.cas.entity.RoleEntity</value>
-				<value>com.plum.cas.entity.UserEntity</value>
-				<value>com.plum.cas.entity.SessionEntity</value>
+				<value>com.plum.entity.AppEntity</value>
+				<value>com.plum.entity.AuthorizationEntity</value>
+				<value>com.plum.entity.OrganizationEntity</value>
+				<value>com.plum.entity.ResourceEntity</value>
+				<value>com.plum.entity.RoleEntity</value>
+				<value>com.plum.entity.UserEntity</value>
+				<value>com.plum.entity.SessionEntity</value>
 			</list>
 		</property>
 

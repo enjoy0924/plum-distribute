@@ -18,7 +18,10 @@
     <jackson.version>2.4.4</jackson.version>
     <slf4j.version>1.7.7</slf4j.version>
     <c3p0.version>0.9.5</c3p0.version>
+    <mysql.version>5.1.26</mysql.version>
+    <activiti.version>5.19.0</activiti.version>
     <activemq.version>5.12.0</activemq.version>
+    <junit.version>4.12</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -154,7 +157,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.26</version>
+      <version>${mysql.version}</version>
     </dependency>
 
     <!-- 引入hibernate库 -->
@@ -175,6 +178,19 @@
       <groupId>org.javassist</groupId>
       <artifactId>javassist</artifactId>
       <version>3.18.1-GA</version>
+    </dependency>
+
+    <!-- activiti依赖 -->
+    <dependency>
+      <groupId>org.activiti</groupId>
+      <artifactId>activiti-engine</artifactId>
+      <version>${activiti.version}</version>
+    </dependency>
+    <!-- activiti 与 Spring 集成 -->
+    <dependency>
+      <groupId>org.activiti</groupId>
+      <artifactId>activiti-spring</artifactId>
+      <version>${activiti.version}</version>
     </dependency>
 
     <!-- jetty嵌入式支持 -->
@@ -213,7 +229,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

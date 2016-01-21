@@ -6,6 +6,10 @@
 
        <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
 
+       <context:component-scan base-package="com.plum.cas">
+              <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+       </context:component-scan>
+
        <!--<bean class="com.plum.cas.web.exception.DefaultExceptionHandler"/>-->
 
        <bean id="ccpsmsValidateService" class="com.plum.register.smsvalidate.impl.CCPSMSValidateServiceImpl">
